@@ -1,16 +1,19 @@
 import Hero from "@/components/Hero";
-
-
-
+import FeaturedProducts from "@/components/FeaturedProducts";
+import Categories from "@/components/Categories";
+import Testimonials from "@/components/Testimonials";
+import Newsletter from "@/components/Newsletter";
+import CartSheet from "@/components/CartSheet";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-
-
-      <main className="width-screen">
-        <Hero />
-      </main>
-    </div>
+    <>
+      <CartSheet />
+      <Hero />
+      <FeaturedProducts />
+      <Categories />
+      <Testimonials />
+      <Newsletter />
+    </>
   );
 }

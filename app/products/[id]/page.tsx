@@ -1,20 +1,25 @@
-import Navbar from "@/components/Navbar";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import ProductDetailsClient from "./ProductDetailsClient";
+import { getProductById, products } from "@/data/products";
 
-function Product() {
-    return (
-
-        <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-            <Navbar />
-
-            <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-80 px-16 bg-white dark:bg-black sm:items-start">
-
-                <h1 className="text-4xl font-bold text-black dark:text-white">Product Details</h1>
-                <p className="mt-4 text-lg text-gray-700 dark:text-gray-300">
-                    lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut laoreet tincidunt, nunc nisl aliquam nunc, eget aliquam nunc nisl euismod nunc. Sed euismod, nunc ut laoreet tincidunt, nunc nisl aliquam nunc, eget aliquam nunc nisl euismod nunc.
-                </p>
-            </main>
-        </div>);
-
+export async function generateStaticParams() {
+  return products.map((p) => ({ id: p.id }));
 }
 
-export default Product;
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const product = getProductById(id);
+  if (!product) return { title: "Product Not Found" };
+  return {
+    title: `${product.name} | ShopNext`,
+    description: product.description.slice(0, 160),
+  };
+}
+
+export default async function ProductDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const product = getProductById(id);
+  if (!product) notFound();
+  return <ProductDetailsClient product={product} />;
+}
