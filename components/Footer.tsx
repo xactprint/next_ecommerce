@@ -93,7 +93,9 @@ export default function Footer() {
         </div>
         <Separator className="my-10" />
         <p className="text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} ShopNext. All rights reserved.
+          &copy; {new Date().getFullYear()} | <a href="https://www.bmcreativ.com" className="hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">
+            bmcreativ.com
+          </a> | All rights reserved.
         </p>
       </div>
     </footer>
