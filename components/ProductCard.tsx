@@ -25,8 +25,8 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <Link href={`/products/${product.id}`}>
-      <Card className="group overflow-hidden border-0 bg-card shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer">
-        <div className="relative aspect-square overflow-hidden bg-muted">
+      <Card className="group overflow-hidden border-0 bg-card shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer rounded-2xl">
+        <div className="relative aspect-square overflow-hidden bg-muted rounded-t-xl">
           <Image
             src={product.image}
             alt={product.name}
@@ -69,7 +69,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             <Button
               size="icon"
               variant="outline"
-              className="h-9 w-9 shrink-0 cursor-pointer"
+              className="h-9 w-9 shrink-0 cursor-pointer rounded-full"
               onClick={handleAddToCart}
             >
               <ShoppingCart className="h-4 w-4" />

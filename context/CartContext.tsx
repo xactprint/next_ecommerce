@@ -28,12 +28,20 @@ function loadCart(): CartItem[] {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>(loadCart);
+  const [items, setItems] = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(items));
-  }, [items]);
+    setItems(loadCart());
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      localStorage.setItem("cart", JSON.stringify(items));
+    }
+  }, [items, mounted]);
 
   const addItem = useCallback((product: Product, quantity = 1) => {
     setItems((prev) => {

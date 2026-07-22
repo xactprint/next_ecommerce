@@ -1,3 +1,4 @@
+import {ClerkProvider} from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
@@ -27,18 +28,18 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn("h-full", "antialiased", "font-sans", inter.variable, playfairDisplayHeading.variable)}
     >
-      <body className="min-h-full flex flex-col">
-        <ThemeProvider>
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>
+        <ClerkProvider>
+          <ThemeProvider>
           <CartProvider>
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-            <Toaster position="top-right" richColors />
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <Toaster position="top-right" richColors />
           </CartProvider>
-        </ThemeProvider>
+          </ThemeProvider>
+        </ClerkProvider>
       </body>
     </html>
   );
 }
-
-

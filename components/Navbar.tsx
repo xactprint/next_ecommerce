@@ -9,6 +9,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 import { useCart } from "@/context/CartContext";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { SignInButton, SignUpButton, Show, UserButton } from "@clerk/nextjs";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -75,6 +76,17 @@ export default function Navbar() {
               </span>
             )}
           </Button>
+          <Show when="signed-out">
+            <SignInButton>
+              <Button variant="ghost" size="sm" className="cursor-pointer">Sign In</Button>
+            </SignInButton>
+            <SignUpButton>
+              <Button size="sm" className="cursor-pointer">Sign Up</Button>
+            </SignUpButton>
+          </Show>
+          <Show when="signed-in">
+            <UserButton afterSignOutUrl="/" />
+          </Show>
         </div>
 
         <div className="flex md:hidden items-center gap-1">
@@ -121,6 +133,20 @@ export default function Navbar() {
                     </Link>
                   ))}
                 </nav>
+                <Separator />
+                <Show when="signed-out">
+                  <SignInButton>
+                    <Button variant="ghost" className="w-full cursor-pointer">Sign In</Button>
+                  </SignInButton>
+                  <SignUpButton>
+                    <Button className="w-full cursor-pointer">Sign Up</Button>
+                  </SignUpButton>
+                </Show>
+                <Show when="signed-in">
+                  <div className="flex justify-center">
+                    <UserButton afterSignOutUrl="/" />
+                  </div>
+                </Show>
               </div>
             </SheetContent>
           </Sheet>
